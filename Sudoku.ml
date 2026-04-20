@@ -120,5 +120,17 @@ let enleve_sur = fun g ->
 let x = (fun i -> fun j -> fun acc -> iter_all g (i,j) acc) in 
 (map_grille x g);;
 
+let rec solve_loop = fun g -> fun n ->
+  if n = 0 then g
+  else
+    let g2 = enleve_sur g in
+    if g2 = g then g2
+    else solve_loop g2 (n - 1);;
+
+let solve_grid = fun g -> solve_loop g 100;;
+
+let () =
+  print_endline "Grille test resolue :";
+  print_grille (solve_grid grille_test);;
 
 
